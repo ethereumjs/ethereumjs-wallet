@@ -1,4 +1,12 @@
-const HDKey = require('hdkey')
+const BIP32 = require('bip32')({
+  highestBit: 0x80000000,
+  masterSecret: new Buffer('Bitcoin seed'),
+  bip32: {
+    public: 0x0488b21e,
+    private: 0x0488ade4
+  }
+})
+
 const Wallet = require('./index.js')
 
 function EthereumHDKey () {
@@ -14,19 +22,19 @@ function fromHDKey (hdkey) {
 }
 
 EthereumHDKey.fromMasterSeed = function (seedBuffer) {
-  return fromHDKey(HDKey.fromMasterSeed(seedBuffer))
+  return fromHDKey(BIP32.fromSeed(seedBuffer))
 }
 
 EthereumHDKey.fromExtendedKey = function (base58key) {
-  return fromHDKey(HDKey.fromExtendedKey(base58key))
+  return fromHDKey(BIP32.fromString(base58key))
 }
 
 EthereumHDKey.prototype.privateExtendedKey = function () {
-  return this._hdkey.privateExtendedKey
+  return this._hdkey.getSerializedPrivateKey()
 }
 
 EthereumHDKey.prototype.publicExtendedKey = function () {
-  return this._hdkey.publicExtendedKey
+  return this._hdkey.getSerializedPublicKey()
 }
 
 EthereumHDKey.prototype.derivePath = function (path) {
@@ -34,14 +42,14 @@ EthereumHDKey.prototype.derivePath = function (path) {
 }
 
 EthereumHDKey.prototype.deriveChild = function (index) {
-  return fromHDKey(this._hdkey.deriveChild(index))
+  return fromHDKey(this._hdkey.derive(index))
 }
 
 EthereumHDKey.prototype.getWallet = function () {
   if (this._hdkey._privateKey) {
-    return Wallet.fromPrivateKey(this._hdkey._privateKey)
+    return Wallet.fromPrivateKey(this._hdkey.getPrivateKey())
   } else {
-    return Wallet.fromPublicKey(this._hdkey._publicKey, true)
+    return Wallet.fromPublicKey(this._hdkey.getPublicKey(), true)
   }
 }
 
