@@ -47,6 +47,10 @@ Object.defineProperty(Wallet.prototype, 'pubKey', {
   }
 })
 
+Wallet.overrideCrypto = function (cryptoObj) {
+  crypto.randomBytes = cryptoObj.randomBytes
+}
+
 Wallet.generate = function (icapDirect) {
   if (icapDirect) {
     while (true) {
