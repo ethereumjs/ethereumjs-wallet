@@ -14,11 +14,7 @@
     "type": "git",
     "url": "https://github.com/ethereumjs/ethereumjs-wallet.git"
   },
-  "keywords": [
-    "ethereum",
-    "wallets",
-    "keys"
-  ],
+  "keywords": ["ethereum", "wallets", "keys"],
   "author": "Alex Beregszaszi <alex@rtfs.hu>",
   "license": "MIT",
   "bugs": {
@@ -42,9 +38,7 @@
     "standard": "^10.0.0"
   },
   "standard": {
-    "globals": [
-      "describe",
-      "it"
-    ]
-  }
+    "globals": ["describe", "it"]
+  },
+  "typings": "./index.d.ts"
 }
