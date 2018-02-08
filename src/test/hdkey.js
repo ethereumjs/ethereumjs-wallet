@@ -30,10 +30,9 @@ describe('.fromExtendedKey()', function () {
   it('should work with public', function () {
     var hdnode = HDKey.fromExtendedKey('xpub661MyMwAqRbcGout4B6s29b6gGQsowyoiF6UgXBEr7eFCWYfXuZDvRxP9zEh1Kwq3TLqDQMbkbaRpSnoC28oWvjLeshoQz1StZ9YHM1EpcJ')
     assert.equal(hdnode.publicExtendedKey(), 'xpub661MyMwAqRbcGout4B6s29b6gGQsowyoiF6UgXBEr7eFCWYfXuZDvRxP9zEh1Kwq3TLqDQMbkbaRpSnoC28oWvjLeshoQz1StZ9YHM1EpcJ')
-    assert.equal(hdnode.privateExtendedKey(), null)
-//    assert.throws(function () {
-//      hdnode.privateExtendedKey()
-//    }, /^Error: Private key is not available$/)
+    assert.throws(function () {
+      hdnode.privateExtendedKey()
+    }, /^Error: This is a public key only wallet$/)
   })
   it('should work with private', function () {
     var hdnode = HDKey.fromExtendedKey('xprv9s21ZrQH143K4KqQx9Zrf1eN8EaPQVFxM2Ast8mdHn7GKiDWzNEyNdduJhWXToy8MpkGcKjxeFWd8oBSvsz4PCYamxR7TX49pSpp3bmHVAY')
