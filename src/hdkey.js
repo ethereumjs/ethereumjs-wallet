@@ -1,3 +1,4 @@
+const assert = require('assert')
 const HDKey = require('hdkey')
 const Wallet = require('./index.js')
 
@@ -22,9 +23,7 @@ EthereumHDKey.fromExtendedKey = function (base58key) {
 }
 
 EthereumHDKey.prototype.privateExtendedKey = function () {
-  if (!this._hdkey.privateExtendedKey) {
-    throw new Error('This is a public key only wallet')
-  }
+  assert(this._hdkey.privateExtendedKey, 'This is a public key only wallet')
   return this._hdkey.privateExtendedKey
 }
 

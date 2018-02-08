@@ -1,3 +1,4 @@
+var assert = require('assert')
 var Wallet = require('./index.js')
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
@@ -5,12 +6,6 @@ var scryptsy = require('scrypt.js')
 var utf8 = require('utf8')
 var aesjs = require('aes-js')
 var Buffer = require('safe-buffer').Buffer
-
-function assert (val, msg) {
-  if (!val) {
-    throw new Error(msg || 'Assertion failed')
-  }
-}
 
 function runCipherBuffer (cipher, data) {
   return Buffer.concat([ cipher.update(data), cipher.final() ])
@@ -90,18 +85,12 @@ Thirdparty.fromEtherWallet = function (input, password) {
 
   var privKey
   if (!json.locked) {
-    if (json.private.length !== 64) {
-      throw new Error('Invalid private key length')
-    }
+    assert(json.private.length === 64, 'Invalid private key length')
 
     privKey = Buffer.from(json.private, 'hex')
   } else {
-    if (typeof password !== 'string') {
-      throw new Error('Password required')
-    }
-    if (password.length < 7) {
-      throw new Error('Password must be at least 7 characters')
-    }
+    assert(typeof password === 'string', 'Password required')
+    assert(password.length >= 7, 'Password must be at least 7 characters')
 
     // the "encrypted" version has the low 4 bytes
     // of the hash of the address appended
@@ -110,9 +99,7 @@ Thirdparty.fromEtherWallet = function (input, password) {
     // decode openssl ciphertext + salt encoding
     cipher = decodeCryptojsSalt(cipher)
 
-    if (!cipher.salt) {
-      throw new Error('Unsupported EtherWallet key format')
-    }
+    assert(cipher.salt, 'Unsupported EtherWallet key format')
 
     // derive key/iv using OpenSSL EVP as implemented in CryptoJS
     var evp = evp_kdf(Buffer.from(password), cipher.salt, { keysize: 32, ivsize: 16 })
@@ -125,11 +112,7 @@ Thirdparty.fromEtherWallet = function (input, password) {
   }
 
   var wallet = new Wallet(privKey)
-
-  if (wallet.getAddressString() !== json.address) {
-    throw new Error('Invalid private key or address')
-  }
-
+  assert(wallet.getAddressString() === json.address, 'Invalid private key or address')
   return wallet
 }
 

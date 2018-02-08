@@ -21,7 +21,7 @@ describe('.getPrivateKey()', function () {
   it('should fail', function () {
     assert.throws(function () {
       Wallet.fromPrivateKey(Buffer.from('001122', 'hex'))
-    }, /^Error: Private key does not satisfy the curve requirements \(ie. it is invalid\)$/)
+    }, /^AssertionError: Private key does not satisfy the curve requirements \(ie. it is invalid\)$/)
   })
 })
 
@@ -70,7 +70,7 @@ describe('public key only wallet', function () {
   it('.fromPublicKey() should not accept compressed keys in strict mode', function () {
     assert.throws(function () {
       Wallet.fromPublicKey(Buffer.from('030639797f6cc72aea0f3d309730844a9e67d9f1866e55845c5f7e0ab48402973d', 'hex'))
-    }, /^Error: Invalid public key$/)
+    }, /^AssertionError: Invalid public key$/)
   })
   it('.fromPublicKey() should accept compressed keys in non-strict mode', function () {
     var tmp = Buffer.from('030639797f6cc72aea0f3d309730844a9e67d9f1866e55845c5f7e0ab48402973d', 'hex')
@@ -83,12 +83,12 @@ describe('public key only wallet', function () {
   it('.getPrivateKey() should fail', function () {
     assert.throws(function () {
       Wallet.fromPublicKey(pubKey).getPrivateKey()
-    }, /^Error: This is a public key only wallet$/)
+    }, /^AssertionError: This is a public key only wallet$/)
   })
   it('.toV3() should fail', function () {
     assert.throws(function () {
       Wallet.fromPublicKey(pubKey).toV3()
-    }, /^Error: This is a public key only wallet$/)
+    }, /^AssertionError: This is a public key only wallet$/)
   })
 })
 
