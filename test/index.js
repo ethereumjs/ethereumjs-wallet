@@ -92,6 +92,23 @@ describe('.fromExtendedPrivateKey()', function () {
   })
 })
 
+describe('.fromPrivateKeyString()', function () {
+  it('should work with hex prefix', function () {
+    var pkStr = '0xefca4cdd31923b50f4214af5d2ae10e7ac45a5019e9431cc195482d707485378'
+    assert.equal(Wallet.fromPrivateKeyString(pkStr).getAddressString(), '0xb14ab53e38da1c172f877dbc6d65e4a1b0474c3c')
+  })
+  it('should work without hex prefix', function () {
+    var pkStr = 'efca4cdd31923b50f4214af5d2ae10e7ac45a5019e9431cc195482d707485378'
+    assert.equal(Wallet.fromPrivateKeyString(pkStr).getAddressString(), '0xb14ab53e38da1c172f877dbc6d65e4a1b0474c3c')
+  })
+  it('should fail with poorly formatted private key string', function () {
+    var pkStr = '1234'
+    assert.throws(function () {
+      Wallet.fromPrivateKeyString(pkStr)
+    }, /^Error: Private key does not satisfy the curve requirements \(ie. it is invalid\)$/)
+  })
+})
+
 describe('.fromExtendedPublicKey()', function () {
   it('should work', function () {
     var xpub = 'xpub661MyMwAqRbcGout4B6s29b6gGQsowyoiF6UgXBEr7eFCWYfXuZDvRxP9zEh1Kwq3TLqDQMbkbaRpSnoC28oWvjLeshoQz1StZ9YHM1EpcJ'
