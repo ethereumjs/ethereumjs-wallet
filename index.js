@@ -204,6 +204,12 @@ Wallet.fromPrivateKey = function (priv) {
   return new Wallet(priv)
 }
 
+Wallet.fromPrivateKeyString = function (priv) {
+  var sanitizedPrivKey = ethUtil.stripHexPrefix(priv)
+  var privBuffer = Buffer.from(sanitizedPrivKey, 'hex')
+  return new Wallet(privBuffer)
+}
+
 Wallet.fromExtendedPrivateKey = function (priv) {
   assert(priv.slice(0, 4) === 'xprv', 'Not an extended private key')
   var tmp = bs58check.decode(priv)
@@ -243,7 +249,17 @@ Wallet.fromV1 = function (input, password) {
 
 Wallet.fromV3 = function (input, password, nonStrict) {
   assert(typeof password === 'string')
-  var json = (typeof input === 'object') ? input : JSON.parse(nonStrict ? input.toLowerCase() : input)
+
+  var json
+  if (typeof input === 'object') {
+    json = input
+  } else {
+    try {
+      var json = JSON.parse(nonStrict ? input.toLowerCase() : input)
+    } catch (err) {
+      throw new Error('Not a valid JSON format')
+    }
+  }
 
   if (json.version !== 3) {
     throw new Error('Not a V3 wallet')
@@ -287,7 +303,17 @@ Wallet.fromV3 = function (input, password, nonStrict) {
  */
 Wallet.fromEthSale = function (input, password) {
   assert(typeof password === 'string')
-  var json = (typeof input === 'object') ? input : JSON.parse(input)
+
+  var json
+  if (typeof input === 'object') {
+    json = input
+  } else {
+    try {
+      var json = JSON.parse(input)
+    } catch (err) {
+      throw new Error('Not a valid JSON format')
+    }
+  }
 
   var encseed = Buffer.from(json.encseed, 'hex')
 
