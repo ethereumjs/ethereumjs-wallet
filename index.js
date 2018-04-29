@@ -255,7 +255,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
     json = input
   } else {
     try {
-      var json = JSON.parse(nonStrict ? input.toLowerCase() : input)
+      json = JSON.parse(nonStrict ? input.toLowerCase() : input)
     } catch (err) {
       throw new Error('Not a valid JSON format')
     }
@@ -309,7 +309,7 @@ Wallet.fromEthSale = function (input, password) {
     json = input
   } else {
     try {
-      var json = JSON.parse(input)
+      json = JSON.parse(input)
     } catch (err) {
       throw new Error('Not a valid JSON format')
     }
