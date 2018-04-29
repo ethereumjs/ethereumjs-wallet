@@ -23,6 +23,27 @@ Features not supported:
 - signing transactions
 - managing storage (neither in node.js or the browser)
 
+## Installation
+```
+npm install ethereumjs-wallet
+```
+
+## How to use
+```
+// initialize library
+var ethWallet = require('ethereumjs-wallet')
+
+// create the wallet object
+var wallet = ethWallet.fromV3(keyStoreString, password, true)
+// or
+var wallet = ethWallet.fromPrivateKeyString(privateKey)
+
+// access wallet properties
+var privateKey = wallet.getPrivateKeyString()
+var address = wallet.getAddressString()
+// etc
+```
+
 ## Wallet API
 
 Constructors:
