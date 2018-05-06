@@ -5,7 +5,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var Wallet = require('./index.js');
 var ethUtil = require('ethereumjs-util');
 var crypto = require('crypto');
-var scryptsy = require('scrypt.js');
+var scryptsy = require('scryptsy');
 var utf8 = require('utf8');
 var aesjs = require('aes-js');
 var Buffer = require('safe-buffer').Buffer;
