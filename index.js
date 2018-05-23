@@ -1,6 +1,6 @@
 var Buffer = require('safe-buffer').Buffer
 var ethUtil = require('ethereumjs-util')
-var crypto = require('crypto')
+var crypto = require('crypto-browserify')
 var scryptsy = require('scrypt.js')
 var uuidv4 = require('uuid/v4')
 var bs58check = require('bs58check')
