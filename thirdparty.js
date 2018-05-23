@@ -126,7 +126,7 @@ Thirdparty.fromEtherWallet = function (input, password) {
 
   var wallet = new Wallet(privKey)
 
-  if (wallet.getAddressString() !== json.address) {
+  if (wallet.getAddressString().slice(2) !== json.address.slice(2)) {
     throw new Error('Invalid private key or address')
   }
 
