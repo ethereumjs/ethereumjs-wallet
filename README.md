@@ -1,11 +1,11 @@
-# ethereumjs-wallet
+# minterjs-wallet
 
 [![NPM Package](https://img.shields.io/npm/v/ethereumjs-wallet.svg?style=flat-square)](https://www.npmjs.org/package/ethereumjs-wallet)
 [![Build Status](https://travis-ci.org/ethereumjs/ethereumjs-wallet.svg?branch=master)](https://travis-ci.org/ethereumjs/ethereumjs-wallet)
 [![Coverage Status](https://img.shields.io/coveralls/ethereumjs/ethereumjs-wallet.svg?style=flat-square)](https://coveralls.io/r/ethereumjs/ethereumjs-wallet)
-[![Gitter](https://img.shields.io/gitter/room/ethereum/ethereumjs-lib.svg?style=flat-square)](https://gitter.im/ethereum/ethereumjs-lib) or #ethereumjs on freenode
 
 A lightweight wallet implementation. At the moment it supports key creation and conversion between various formats.
+Forked from [ethereumjs-wallet](https://github.com/ethereumjs/ethereumjs-wallet)
 
 It is complemented by the following packages:
 - [ethereumjs-tx](https://github.com/ethereumjs/ethereumjs-tx) to sign transactions
