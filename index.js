@@ -82,7 +82,7 @@ Wallet.prototype.getPrivateKey = function () {
 }
 
 Wallet.prototype.getPrivateKeyString = function () {
-  return ethUtil.bufferToHex(this.getPrivateKey())
+  return this.getPrivateKey().toString('hex')
 }
 
 Wallet.prototype.getPublicKey = function () {
@@ -90,7 +90,7 @@ Wallet.prototype.getPublicKey = function () {
 }
 
 Wallet.prototype.getPublicKeyString = function () {
-  return ethUtil.bufferToHex(this.getPublicKey())
+  return this.getPublicKey().toString('hex')
 }
 
 Wallet.prototype.getAddress = function () {
@@ -98,11 +98,23 @@ Wallet.prototype.getAddress = function () {
 }
 
 Wallet.prototype.getAddressString = function () {
-  return ethUtil.bufferToHex(this.getAddress())
+  return 'Mx' + this.getAddress().toString('hex')
 }
 
 Wallet.prototype.getChecksumAddressString = function () {
-  return ethUtil.toChecksumAddress(this.getAddressString())
+  var address = this.getAddress().toString('hex').toLowerCase()
+  var hash = ethUtil.keccak(address).toString('hex')
+  var ret = ''
+
+  for (var i = 0; i < address.length; i++) {
+    if (parseInt(hash[i], 16) >= 8) {
+      ret += address[i].toUpperCase()
+    } else {
+      ret += address[i]
+    }
+  }
+
+  return 'Mx' + ret
 }
 
 // https://github.com/ethereum/wiki/wiki/Web3-Secret-Storage-Definition
