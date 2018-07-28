@@ -252,6 +252,11 @@ describe('.fromEthSale()', function () {
     var wallet = Wallet.fromEthSale(json, 'password123')
     assert.strictEqual(wallet.getAddressString(), '0x83b6371ba6bd9a47f82a7c4920835ef4be08f47b')
   })
+  it('should fail on wrong password', function () {
+    assert.throws(function () {
+      var wallet = Wallet.fromEthSale(json, 'wrongtesttest')
+    }, /^Error: Decoded key mismatch - possibly wrong passphrase$/)
+  })
 })
 
 describe('.fromEtherWallet()', function () {
