@@ -34,6 +34,7 @@
   "dependencies": {
     "aes-js": "^3.1.1",
     "bs58check": "^2.1.2",
+    "create-hash": "^1.2.0",
     "ethereumjs-util": "^6.0.0",
     "hdkey": "^1.1.0",
     "randombytes": "^2.0.6",

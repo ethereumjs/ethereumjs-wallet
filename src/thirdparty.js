@@ -1,6 +1,7 @@
 var Wallet = require('./index.js')
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
+var createHash = require('create-hash')
 var scryptsy = require('scrypt.js')
 var utf8 = require('utf8')
 var aesjs = require('aes-js')
@@ -32,14 +33,14 @@ var Thirdparty = {}
 function evp_kdf (data, salt, opts) { // eslint-disable-line
   // A single EVP iteration, returns `D_i`, where block equlas to `D_(i-1)`
   function iter (block) {
-    var hash = crypto.createHash(opts.digest || 'md5')
+    var hash = createHash(opts.digest || 'md5')
     hash.update(block)
     hash.update(data)
     hash.update(salt)
     block = hash.digest()
 
     for (var i = 1; i < (opts.count || 1); i++) {
-      hash = crypto.createHash(opts.digest || 'md5')
+      hash = createHash(opts.digest || 'md5')
       hash.update(block)
       block = hash.digest()
     }
