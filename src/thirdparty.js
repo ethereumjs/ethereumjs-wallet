@@ -2,6 +2,7 @@ var Wallet = require('./index.js')
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
 var createHash = require('create-hash')
+var pbkdf2 = require('pbkdf2')
 var scryptsy = require('scrypt.js')
 var utf8 = require('utf8')
 var aesjs = require('aes-js')
@@ -227,7 +228,7 @@ Thirdparty.fromQuorumWallet = function (passphrase, userid) {
   assert(userid.length >= 10)
 
   var seed = passphrase + userid
-  seed = crypto.pbkdf2Sync(seed, seed, 2000, 32, 'sha256')
+  seed = pbkdf2.pbkdf2Sync(seed, seed, 2000, 32, 'sha256')
 
   return new Wallet(seed)
 }

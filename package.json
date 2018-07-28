@@ -37,6 +37,7 @@
     "create-hash": "^1.2.0",
     "ethereumjs-util": "^6.0.0",
     "hdkey": "^1.1.0",
+    "pbkdf2": "^3.0.16",
     "randombytes": "^2.0.6",
     "safe-buffer": "^5.1.2",
     "scrypt.js": "^0.3.0",

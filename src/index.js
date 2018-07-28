@@ -2,6 +2,7 @@ var Buffer = require('safe-buffer').Buffer
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
 var randomBytes = require('randombytes')
+var pbkdf2 = require('pbkdf2')
 var scryptsy = require('scrypt.js')
 var uuidv4 = require('uuid/v4')
 var bs58check = require('bs58check')
@@ -124,7 +125,7 @@ Wallet.prototype.toV3 = function (password, opts) {
   if (kdf === 'pbkdf2') {
     kdfparams.c = opts.c || 262144
     kdfparams.prf = 'hmac-sha256'
-    derivedKey = crypto.pbkdf2Sync(Buffer.from(password), salt, kdfparams.c, kdfparams.dklen, 'sha256')
+    derivedKey = pbkdf2.pbkdf2Sync(Buffer.from(password), salt, kdfparams.c, kdfparams.dklen, 'sha256')
   } else if (kdf === 'scrypt') {
     // FIXME: support progress reporting callback
     kdfparams.n = opts.n || 262144
@@ -264,7 +265,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
       throw new Error('Unsupported parameters to PBKDF2')
     }
 
-    derivedKey = crypto.pbkdf2Sync(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.c, kdfparams.dklen, 'sha256')
+    derivedKey = pbkdf2.pbkdf2Sync(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.c, kdfparams.dklen, 'sha256')
   } else {
     throw new Error('Unsupported key derivation scheme')
   }
@@ -293,7 +294,7 @@ Wallet.fromEthSale = function (input, password) {
   var encseed = Buffer.from(json.encseed, 'hex')
 
   // key derivation
-  var derivedKey = crypto.pbkdf2Sync(password, password, 2000, 32, 'sha256').slice(0, 16)
+  var derivedKey = pbkdf2.pbkdf2Sync(password, password, 2000, 32, 'sha256').slice(0, 16)
 
   // seed decoding (IV is first 16 bytes)
   // NOTE: crypto (derived from openssl) when used with aes-*-cbc will handle PKCS#7 padding internally
