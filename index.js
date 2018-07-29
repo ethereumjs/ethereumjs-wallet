@@ -48,6 +48,10 @@ Object.defineProperty(Wallet.prototype, 'pubKey', {
   }
 })
 
+Wallet.overrideCrypto = function (cryptoObj) {
+  crypto.randomBytes = cryptoObj.randomBytes
+}
+
 Wallet.generate = function (icapDirect) {
   if (icapDirect) {
     var max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
