@@ -1,7 +1,7 @@
 # ethereumjs-wallet
 
 [![NPM Package](https://img.shields.io/npm/v/ethereumjs-wallet.svg?style=flat-square)](https://www.npmjs.org/package/ethereumjs-wallet)
-[![Build Status](https://img.shields.io/travis/ethereumjs/ethereumjs-wallet.svg?branch=master&style=flat-square)](https://travis-ci.org/ethereumjs/ethereumjs-wallet)
+[![Build Status](https://travis-ci.org/ethereumjs/ethereumjs-wallet.svg?branch=master)](https://travis-ci.org/ethereumjs/ethereumjs-wallet)
 [![Coverage Status](https://img.shields.io/coveralls/ethereumjs/ethereumjs-wallet.svg?style=flat-square)](https://coveralls.io/r/ethereumjs/ethereumjs-wallet)
 [![Gitter](https://img.shields.io/gitter/room/ethereum/ethereumjs-lib.svg?style=flat-square)](https://gitter.im/ethereum/ethereumjs-lib) or #ethereumjs on freenode
 
@@ -78,7 +78,7 @@ Constructors:
 * `fromMasterSeed(seed)` - create an instance based on a seed
 * `fromExtendedKey(key)` - create an instance based on a BIP32 extended private or public key
 
-For the seed  we suggest to use [bip39](https://npmjs.org/packages/bip39) to create one from a BIP39 mnemonic.
+For the seed  we suggest to use [bip39](https://npmjs.org/package/bip39) to create one from a BIP39 mnemonic.
 
 Instance methods:
 

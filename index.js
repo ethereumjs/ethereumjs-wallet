@@ -1,7 +1,8 @@
+var Buffer = require('safe-buffer').Buffer
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
 var scryptsy = require('scrypt.js')
-var uuid = require('uuid')
+var uuidv4 = require('uuid/v4')
 var bs58check = require('bs58check')
 
 function assert (val, msg) {
@@ -53,9 +54,10 @@ Wallet.overrideCrypto = function (cryptoObj) {
 
 Wallet.generate = function (icapDirect) {
   if (icapDirect) {
+    var max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
     while (true) {
       var privKey = crypto.randomBytes(32)
-      if (ethUtil.privateToAddress(privKey)[0] === 0) {
+      if (new ethUtil.BN(ethUtil.privateToAddress(privKey)).lte(max)) {
         return new Wallet(privKey)
       }
     }
@@ -125,13 +127,13 @@ Wallet.prototype.toV3 = function (password, opts) {
   if (kdf === 'pbkdf2') {
     kdfparams.c = opts.c || 262144
     kdfparams.prf = 'hmac-sha256'
-    derivedKey = crypto.pbkdf2Sync(new Buffer(password), salt, kdfparams.c, kdfparams.dklen, 'sha256')
+    derivedKey = crypto.pbkdf2Sync(Buffer.from(password), salt, kdfparams.c, kdfparams.dklen, 'sha256')
   } else if (kdf === 'scrypt') {
     // FIXME: support progress reporting callback
     kdfparams.n = opts.n || 262144
     kdfparams.r = opts.r || 8
     kdfparams.p = opts.p || 1
-    derivedKey = scryptsy(new Buffer(password), salt, kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = scryptsy(Buffer.from(password), salt, kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
   } else {
     throw new Error('Unsupported kdf')
   }
@@ -143,11 +145,11 @@ Wallet.prototype.toV3 = function (password, opts) {
 
   var ciphertext = Buffer.concat([ cipher.update(this.privKey), cipher.final() ])
 
-  var mac = ethUtil.sha3(Buffer.concat([ derivedKey.slice(16, 32), new Buffer(ciphertext, 'hex') ]))
+  var mac = ethUtil.sha3(Buffer.concat([ derivedKey.slice(16, 32), Buffer.from(ciphertext, 'hex') ]))
 
   return {
     version: 3,
-    id: uuid.v4({ random: opts.uuid || crypto.randomBytes(16) }),
+    id: uuidv4({ random: opts.uuid || crypto.randomBytes(16) }),
     address: this.getAddress().toString('hex'),
     crypto: {
       ciphertext: ciphertext.toString('hex'),
@@ -227,9 +229,9 @@ Wallet.fromV1 = function (input, password) {
   }
 
   var kdfparams = json.Crypto.KeyHeader.KdfParams
-  var derivedKey = scryptsy(new Buffer(password), new Buffer(json.Crypto.Salt, 'hex'), kdfparams.N, kdfparams.R, kdfparams.P, kdfparams.DkLen)
+  var derivedKey = scryptsy(Buffer.from(password), Buffer.from(json.Crypto.Salt, 'hex'), kdfparams.N, kdfparams.R, kdfparams.P, kdfparams.DkLen)
 
-  var ciphertext = new Buffer(json.Crypto.CipherText, 'hex')
+  var ciphertext = Buffer.from(json.Crypto.CipherText, 'hex')
 
   var mac = ethUtil.sha3(Buffer.concat([ derivedKey.slice(16, 32), ciphertext ]))
 
@@ -237,7 +239,7 @@ Wallet.fromV1 = function (input, password) {
     throw new Error('Key derivation failed - possibly wrong passphrase')
   }
 
-  var decipher = crypto.createDecipheriv('aes-128-cbc', ethUtil.sha3(derivedKey.slice(0, 16)).slice(0, 16), new Buffer(json.Crypto.IV, 'hex'))
+  var decipher = crypto.createDecipheriv('aes-128-cbc', ethUtil.sha3(derivedKey.slice(0, 16)).slice(0, 16), Buffer.from(json.Crypto.IV, 'hex'))
   var seed = decipherBuffer(decipher, ciphertext)
 
   return new Wallet(seed)
@@ -257,7 +259,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
     kdfparams = json.crypto.kdfparams
 
     // FIXME: support progress reporting callback
-    derivedKey = scryptsy(new Buffer(password), new Buffer(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = scryptsy(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
   } else if (json.crypto.kdf === 'pbkdf2') {
     kdfparams = json.crypto.kdfparams
 
@@ -265,19 +267,19 @@ Wallet.fromV3 = function (input, password, nonStrict) {
       throw new Error('Unsupported parameters to PBKDF2')
     }
 
-    derivedKey = crypto.pbkdf2Sync(new Buffer(password), new Buffer(kdfparams.salt, 'hex'), kdfparams.c, kdfparams.dklen, 'sha256')
+    derivedKey = crypto.pbkdf2Sync(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.c, kdfparams.dklen, 'sha256')
   } else {
     throw new Error('Unsupported key derivation scheme')
   }
 
-  var ciphertext = new Buffer(json.crypto.ciphertext, 'hex')
+  var ciphertext = Buffer.from(json.crypto.ciphertext, 'hex')
 
   var mac = ethUtil.sha3(Buffer.concat([ derivedKey.slice(16, 32), ciphertext ]))
   if (mac.toString('hex') !== json.crypto.mac) {
     throw new Error('Key derivation failed - possibly wrong passphrase')
   }
 
-  var decipher = crypto.createDecipheriv(json.crypto.cipher, derivedKey.slice(0, 16), new Buffer(json.crypto.cipherparams.iv, 'hex'))
+  var decipher = crypto.createDecipheriv(json.crypto.cipher, derivedKey.slice(0, 16), Buffer.from(json.crypto.cipherparams.iv, 'hex'))
   var seed = decipherBuffer(decipher, ciphertext, 'hex')
 
   return new Wallet(seed)
@@ -291,7 +293,7 @@ Wallet.fromEthSale = function (input, password) {
   assert(typeof password === 'string')
   var json = (typeof input === 'object') ? input : JSON.parse(input)
 
-  var encseed = new Buffer(json.encseed, 'hex')
+  var encseed = Buffer.from(json.encseed, 'hex')
 
   // key derivation
   var derivedKey = crypto.pbkdf2Sync(password, password, 2000, 32, 'sha256').slice(0, 16)

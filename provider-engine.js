@@ -8,16 +8,18 @@ module.exports = WalletSubprovider
 inherits(WalletSubprovider, HookedWalletEthTxSubprovider)
 
 function WalletSubprovider (wallet, opts) {
+  opts = opts || {}
+
   opts.getAccounts = function (cb) {
-    cb(null, [ wallet.getAddressesString() ])
+    cb(null, [ wallet.getAddressString() ])
   }
 
   opts.getPrivateKey = function (address, cb) {
     if (address !== wallet.getAddressString()) {
-      return cb('Account not found')
+      cb(new Error('Account not found'))
+    } else {
+      cb(null, wallet.getPrivateKey())
     }
-
-    cb(null, wallet.getPrivateKey())
   }
 
   WalletSubprovider.super_.call(this, opts)
