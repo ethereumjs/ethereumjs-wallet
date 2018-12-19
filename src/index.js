@@ -293,7 +293,7 @@ Wallet.fromEthSale = function (input, password) {
   var encseed = Buffer.from(json.encseed, 'hex')
 
   // key derivation
-  var derivedKey = crypto.pbkdf2Sync(password, password, 2000, 32, 'sha256').slice(0, 16)
+  var derivedKey = crypto.pbkdf2Sync(password, '', 1000, 32, 'sha256').slice(0, 16)
 
   // seed decoding (IV is first 16 bytes)
   // NOTE: crypto (derived from openssl) when used with aes-*-cbc will handle PKCS#7 padding internally
