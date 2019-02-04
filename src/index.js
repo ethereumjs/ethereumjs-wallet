@@ -1,7 +1,7 @@
 var Buffer = require('safe-buffer').Buffer
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
-var randomBytes = require('randombytes')
+var randombyets = require('randombytes')
 var scryptsy = require('scrypt.js')
 var uuidv4 = require('uuid/v4')
 var bs58check = require('bs58check')
@@ -49,7 +49,10 @@ Object.defineProperty(Wallet.prototype, 'pubKey', {
   }
 })
 
-Wallet.generate = function (icapDirect) {
+Wallet.generate = function (icapDirect, opts) {
+  opts = opts || {}
+  var randomBytes = opts.randomBytes || randomBytes
+
   if (icapDirect) {
     var max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
     while (true) {
@@ -63,7 +66,10 @@ Wallet.generate = function (icapDirect) {
   }
 }
 
-Wallet.generateVanityAddress = function (pattern) {
+Wallet.generateVanityAddress = function (pattern, opts) {
+  opts = opts || {}
+  var randomBytes = opts.randomBytes || randomBytes
+
   if (typeof pattern !== 'object') {
     pattern = new RegExp(pattern)
   }
@@ -111,6 +117,7 @@ Wallet.prototype.toV3 = function (password, opts) {
   assert(this._privKey, 'This is a public key only wallet')
 
   opts = opts || {}
+  var randomBytes = opts.randomBytes || randomBytes
   var salt = opts.salt || randomBytes(32)
   var iv = opts.iv || randomBytes(16)
 
