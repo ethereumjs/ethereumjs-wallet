@@ -190,10 +190,7 @@ Thirdparty.fromKryptoKit = function (entropy, password) {
     var r = 8
     var p = 1
 
-    var aesKey = crypto.scryptSync(Buffer.from(password, 'utf8'), salt, dklen, { 'cost': n, 'blockSize': r, 'parallelization': p }, (err, aesKey) => {
-      if (err) throw err
-      console.log(aesKey.toString('hex')) // '3745e48...aa39b34'
-    })
+    var aesKey = crypto.scryptSync(Buffer.from(password, 'utf8'), salt, dklen, { 'cost': n, 'blockSize': r, 'parallelization': p })
 
     /* FIXME: try to use `crypto` instead of `aesjs`
 
