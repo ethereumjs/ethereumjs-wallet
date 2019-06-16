@@ -129,7 +129,10 @@ Wallet.prototype.toV3 = function (password, opts) {
     kdfparams.n = opts.n || 262144
     kdfparams.r = opts.r || 8
     kdfparams.p = opts.p || 1
-    derivedKey = crypto.scrypt(Buffer.from(password), salt, kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = crypto.scrypt(Buffer.from(password), salt, kdfparams.dklen, {"cost": kdfparams.n, "blockSize": kdfparams.r, "parallelization": kdfparams.p}, (err, derivedKey) => {
+      if (err) throw err;
+      console.log(derivedKey.toString('hex'));  // '3745e48...aa39b34'
+    })
   } else {
     throw new Error('Unsupported kdf')
   }
@@ -225,7 +228,10 @@ Wallet.fromV1 = function (input, password) {
   }
 
   var kdfparams = json.Crypto.KeyHeader.KdfParams
-  var derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(json.Crypto.Salt, 'hex'), kdfparams.N, kdfparams.R, kdfparams.P, kdfparams.DkLen)
+  var derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(json.Crypto.Salt, 'hex'), kdfparams.dklen, {"cost": kdfparams.n, "blockSize": kdfparams.r, "parallelization": kdfparams.p}, (err, derivedKey) => {
+    if (err) throw err;
+    console.log(derivedKey.toString('hex'));  // '3745e48...aa39b34'
+  })
 
   var ciphertext = Buffer.from(json.Crypto.CipherText, 'hex')
 
@@ -255,7 +261,10 @@ Wallet.fromV3 = function (input, password, nonStrict) {
     kdfparams = json.crypto.kdfparams
 
     // FIXME: support progress reporting callback
-    derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.dklen, {"cost": kdfparams.n, "blockSize": kdfparams.r, "parallelization": kdfparams.p}, (err, derivedKey) => {
+      if (err) throw err;
+      console.log(derivedKey.toString('hex'));  // '3745e48...aa39b34'
+    })
   } else if (json.crypto.kdf === 'pbkdf2') {
     kdfparams = json.crypto.kdfparams
 

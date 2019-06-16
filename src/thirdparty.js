@@ -185,7 +185,15 @@ Thirdparty.fromKryptoKit = function (entropy, password) {
     var checksum = entropy.slice(30, 46)
 
     var salt = kryptoKitBrokenScryptSeed(encryptedSeed)
-    var aesKey = crypto.scrypt(Buffer.from(password, 'utf8'), salt, 16384, 8, 1, 32)
+    var dklen = 32
+    var n = 16384
+    var r = 8
+    var p = 1
+
+    var aesKey = crypto.scryptSync(Buffer.from(password, 'utf8'), salt, dklen, {"cost": n, "blockSize": r, "parallelization": p}, (err, aesKey) => {
+      if (err) throw err;
+      console.log(aesKey.toString('hex'));  // '3745e48...aa39b34'
+    })
 
     /* FIXME: try to use `crypto` instead of `aesjs`
 
