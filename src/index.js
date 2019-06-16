@@ -2,7 +2,6 @@ var Buffer = require('safe-buffer').Buffer
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
 var randomBytes = require('randombytes')
-var scryptsy = require('scrypt.js')
 var uuidv4 = require('uuid/v4')
 var bs58check = require('bs58check')
 
@@ -130,7 +129,7 @@ Wallet.prototype.toV3 = function (password, opts) {
     kdfparams.n = opts.n || 262144
     kdfparams.r = opts.r || 8
     kdfparams.p = opts.p || 1
-    derivedKey = scryptsy(Buffer.from(password), salt, kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = crypto.scrypt(Buffer.from(password), salt, kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
   } else {
     throw new Error('Unsupported kdf')
   }
@@ -226,7 +225,7 @@ Wallet.fromV1 = function (input, password) {
   }
 
   var kdfparams = json.Crypto.KeyHeader.KdfParams
-  var derivedKey = scryptsy(Buffer.from(password), Buffer.from(json.Crypto.Salt, 'hex'), kdfparams.N, kdfparams.R, kdfparams.P, kdfparams.DkLen)
+  var derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(json.Crypto.Salt, 'hex'), kdfparams.N, kdfparams.R, kdfparams.P, kdfparams.DkLen)
 
   var ciphertext = Buffer.from(json.Crypto.CipherText, 'hex')
 
@@ -256,7 +255,7 @@ Wallet.fromV3 = function (input, password, nonStrict) {
     kdfparams = json.crypto.kdfparams
 
     // FIXME: support progress reporting callback
-    derivedKey = scryptsy(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
+    derivedKey = crypto.scrypt(Buffer.from(password), Buffer.from(kdfparams.salt, 'hex'), kdfparams.n, kdfparams.r, kdfparams.p, kdfparams.dklen)
   } else if (json.crypto.kdf === 'pbkdf2') {
     kdfparams = json.crypto.kdfparams
 

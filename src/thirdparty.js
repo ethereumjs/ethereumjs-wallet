@@ -1,7 +1,6 @@
 var Wallet = require('./index.js')
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
-var scryptsy = require('scrypt.js')
 var utf8 = require('utf8')
 var aesjs = require('aes-js')
 var Buffer = require('safe-buffer').Buffer
@@ -186,7 +185,7 @@ Thirdparty.fromKryptoKit = function (entropy, password) {
     var checksum = entropy.slice(30, 46)
 
     var salt = kryptoKitBrokenScryptSeed(encryptedSeed)
-    var aesKey = scryptsy(Buffer.from(password, 'utf8'), salt, 16384, 8, 1, 32)
+    var aesKey = crypto.scrypt(Buffer.from(password, 'utf8'), salt, 16384, 8, 1, 32)
 
     /* FIXME: try to use `crypto` instead of `aesjs`
 
