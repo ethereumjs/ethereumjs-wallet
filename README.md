@@ -51,7 +51,8 @@ Instance methods:
 - `getAddress()` - return the address
 - `getChecksumAddressString()` - return the [address with checksum](https://github.com/ethereum/EIPs/issues/55)
 - `getV3Filename([timestamp])` - return the suggested filename for V3 keystores
-- `toV3(password, [options])` - return the wallet as a JSON string (Version 3 of the Ethereum wallet format)
+- `toV3(password, [options])` - return the wallet (Version 3 of the Ethereum wallet format)
+- `toV3String(password, [options])` - return the wallet as a JSON string (Version 3 of the Ethereum wallet format)
 
 All of the above instance methods return a Buffer or JSON. Use the `String` suffixed versions for a string output, such as `getPrivateKeyString()`.
 
