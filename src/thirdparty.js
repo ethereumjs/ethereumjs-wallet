@@ -176,7 +176,7 @@ Thirdparty.fromKryptoKit = function (entropy, password) {
 
   var privKey
   if (type === 'd') {
-    privKey = ethUtil.sha256(entropy)
+    privKey = ethUtil.sha256(Buffer.from(entropy))
   } else if (type === 'q') {
     if (typeof password !== 'string') {
       throw new Error('Password required')
