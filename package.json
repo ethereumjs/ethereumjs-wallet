@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/ethereumjs/ethereumjs-wallet",
   "dependencies": {
-    "@web3-js/scrypt-shim": "^0.1.0",
+    "scryptsy": "^1.2.1",
     "aes-js": "^3.1.1",
     "bs58check": "^2.1.2",
     "ethereumjs-util": "^6.0.0",
