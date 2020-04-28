@@ -1,7 +1,7 @@
 var Wallet = require('./index.js')
 var ethUtil = require('ethereumjs-util')
 var crypto = require('crypto')
-var scryptsy = require('scrypt.js')
+var scryptsy = require('scryptsy')
 var utf8 = require('utf8')
 var aesjs = require('aes-js')
 var Buffer = require('safe-buffer').Buffer
@@ -176,7 +176,7 @@ Thirdparty.fromKryptoKit = function (entropy, password) {
 
   var privKey
   if (type === 'd') {
-    privKey = ethUtil.sha256(entropy)
+    privKey = ethUtil.sha256(Buffer.from(entropy))
   } else if (type === 'q') {
     if (typeof password !== 'string') {
       throw new Error('Password required')
