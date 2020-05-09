@@ -1,8 +1,8 @@
 /* tslint:disable no-invalid-this */
 import * as assert from 'assert'
-import { BN } from 'ethereumjs-util'
 import { Wallet as ethersWallet } from 'ethers'
 
+const BN = require('bn.js')
 const zip = require('lodash.zip')
 
 import Wallet from '../src'

@@ -4,6 +4,7 @@ import * as ethUtil from 'ethereumjs-util'
 export { default as hdkey } from './hdkey'
 export { default as thirdparty } from './thirdparty'
 
+const BN = require('bn.js')
 const bs58check = require('bs58check')
 const randomBytes = require('randombytes')
 const scryptsy = require('@web3-js/scrypt-shim')
@@ -253,10 +254,10 @@ export default class Wallet {
    */
   public static generate(icapDirect: boolean = false): Wallet {
     if (icapDirect) {
-      const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+      const max = new BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
       while (true) {
         const privateKey = randomBytes(32) as Buffer
-        if (new ethUtil.BN(ethUtil.privateToAddress(privateKey)).lte(max)) {
+        if (new BN(ethUtil.privateToAddress(privateKey)).lte(max)) {
           return new Wallet(privateKey)
         }
       }
