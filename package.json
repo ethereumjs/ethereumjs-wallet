@@ -67,7 +67,7 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^2.0.0",
-    "karma-typescript": "^4.1.1",
+    "karma-typescript": "^5.0.2",
     "karma-typescript-es6-transform": "^5.0.2",
     "lodash.zip": "^4.2.0",
     "mocha": "^7.1.2",
@@ -78,7 +78,7 @@
     "tslint": "^5.12.0",
     "typedoc": "^0.14.2",
     "typedoc-plugin-markdown": "^1.2.0",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.2",
     "typestrict": "^1.0.2"
   }
 }
