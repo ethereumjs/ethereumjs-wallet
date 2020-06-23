@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 (modification: no type change headlines) and this project adheres to 
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.4] - 2020-05-01
+
+This is the last release from the `v0.6.x` release series. It adds Node 12 compatibility while maintaining compatibility
+down to Node 6. To be able to do so the `scrypt.js` key derivation library is exchanged with `scryptsy`. While this solution is backwards-compatible the changed library only provides a pure JS implementation and no native bindings. If you need native performance pin your dependency to `v0.6.3` or update to the `v1.0.0` library version to be released shortly after this release.
+
+Change Summary:
+
+- v0.6.x back patch: added node v12 support, switched to `scryptsy` key derivation library (pure JS implementation),
+  PR [#114](https://github.com/ethereumjs/ethereumjs-wallet/pull/114)
+- Updated `hdkey` to `v1.1.1`,
+  PR [#87](https://github.com/ethereumjs/ethereumjs-wallet/pull/87)
+- Refactored `decipherBuffer()`,
+  PR [#82](https://github.com/ethereumjs/ethereumjs-wallet/pull/82)
+- Added more tests for `Wallet.fromEthSale()`,
+  PR [#80](https://github.com/ethereumjs/ethereumjs-wallet/pull/80)
+
+[0.6.4]: https://github.com/ethereumjs/ethereumjs-wallet/compare/v0.6.3...v0.6.4
 
 ## [0.6.3] - 2018-12-19
 - Fixed installation errors for certain packaging tools, PR [#67](https://github.com/ethereumjs/ethereumjs-wallet/pull/67)
