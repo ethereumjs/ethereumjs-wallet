@@ -1,4 +1,4 @@
-const HDKey = require('hdkey')
+const { HDKey } = require('ethereum-cryptography/hdkey')
 const Wallet = require('./index.js')
 
 function EthereumHDKey () {
