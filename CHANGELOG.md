@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 (modification: no type change headlines) and this project adheres to 
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.6.5] - 2020-07-17
+- Replaced native `hdkey` dependency with 
+  [ethereum-cryptography](https://github.com/ethereum/js-ethereum-cryptography) that doesn't require
+  native dependency compiling,
+  PR [#130](https://github.com/ethereumjs/ethereumjs-wallet/pull/130)
+
+[0.6.5]: https://github.com/ethereumjs/ethereumjs-wallet/compare/v0.6.4...v0.6.5
+
 ## [0.6.4] - 2020-05-01
 
 This is the last release from the `v0.6.x` release series. It adds Node 12 compatibility while maintaining compatibility
