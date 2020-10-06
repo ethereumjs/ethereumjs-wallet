@@ -24,7 +24,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint"
     }
   },
   "repository": {

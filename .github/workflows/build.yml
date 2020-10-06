@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [10.x, 12.x, 13.x, 14.4.0, 14.5.0, 14.6.0, 14.7.0, 14.8.0, 14.9.0]
+        node-version: [10.x, 12.x, 13.x, 14.4.0, 14.5.0, 14.6.0, 14.7.0, 14.8.0, 14.9.0, 14.10, 14.11, 14.13, 14.x]
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
