@@ -237,7 +237,7 @@ interface EthSaleKeystore {
 
 // wallet implementation
 
-export default class Wallet {
+class Wallet {
   constructor(
     private readonly privateKey?: Buffer | undefined,
     private publicKey: Buffer | undefined = undefined,
@@ -645,6 +645,9 @@ export default class Wallet {
     return JSON.stringify(await this.toV3(password, opts))
   }
 }
+
+export default Wallet
+export { Wallet }
 
 // helpers
 
