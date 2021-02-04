@@ -648,7 +648,16 @@ class Wallet {
   }
 }
 
+/**
+ * Please note that the default export for Wallet is DEPRECATED and
+ * may be removed in the next major version.
+ * Instead, please use the named export like so:
+ * `import { Wallet } from 'ethereumjs-wallet'`
+ *  or
+ * `const { Wallet } = require('ethereumjs-wallet')`
+ */
 export default Wallet
+
 export { Wallet }
 
 // helpers
