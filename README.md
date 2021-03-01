@@ -35,13 +35,21 @@ You can import the `Wallet` class like this
 Node.js / ES5:
 
 ```js
+// Introduced along v1.0.2 (UNRELEASED)
 const { Wallet } = require('ethereumjs-wallet')
+
+// @deprecated, up till version v1.0.1
+const Wallet = require('ethereumjs-wallet').default
 ```
 
 ESM / TypeScript:
 
 ```js
+// Introduced along v1.0.2 (UNRELEASED)
 import { Wallet } from 'ethereumjs-wallet'
+
+// @deprecated, up till version v1.0.1
+import Wallet from 'ethereumjs-wallet'
 ```
 
 ## Thirdparty API
