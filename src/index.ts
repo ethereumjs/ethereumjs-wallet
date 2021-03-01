@@ -237,7 +237,7 @@ interface EthSaleKeystore {
 
 // wallet implementation
 
-export default class Wallet {
+class Wallet {
   constructor(
     private readonly privateKey?: Buffer | undefined,
     private publicKey: Buffer | undefined = undefined,
@@ -599,7 +599,9 @@ export default class Wallet {
     }
 
     const ciphertext = runCipherBuffer(cipher, this.privKey)
-    const mac = keccak256(Buffer.concat([Buffer.from(derivedKey.slice(16, 32)), Buffer.from(ciphertext)]))
+    const mac = keccak256(
+      Buffer.concat([Buffer.from(derivedKey.slice(16, 32)), Buffer.from(ciphertext)]),
+    )
 
     return {
       version: 3,
@@ -645,6 +647,18 @@ export default class Wallet {
     return JSON.stringify(await this.toV3(password, opts))
   }
 }
+
+/**
+ * Please note that the default export for Wallet is DEPRECATED and
+ * may be removed in the next major version.
+ * Instead, please use the named export like so:
+ * `import { Wallet } from 'ethereumjs-wallet'`
+ *  or
+ * `const { Wallet } = require('ethereumjs-wallet')`
+ */
+export default Wallet
+
+export { Wallet }
 
 // helpers
 
