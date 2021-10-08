@@ -1,8 +1,8 @@
 # ethereumjs-wallet
 
-[![NPM Package](https://img.shields.io/npm/v/ethereumjs-wallet.svg)](https://www.npmjs.org/package/ethereumjs-wallet)
-[![Actions Status](https://github.com/ethereumjs/ethereumjs-wallet/workflows/Build/badge.svg)](https://github.com/ethereumjs/ethereumjs-wallet/actions)
-[![Coverage Status](https://img.shields.io/coveralls/ethereumjs/ethereumjs-wallet.svg)](https://coveralls.io/r/ethereumjs/ethereumjs-wallet)
+[![NPM Package][npm-badge]][npm-link]
+[![Actions Status][actions-badge]][actions-link]
+[![Coverage Status][coverage-badge]][coverage-link]
 [![Discord][discord-badge]][discord-link]
 
 A lightweight wallet implementation. At the moment it supports key creation and conversion between various formats.
@@ -17,7 +17,7 @@ Motivations are:
 
 - be lightweight
 - work in a browser
-- use a single, maintained version of crypto library (and that should be in line with `ethereumjs-util` and `@ethereumjs/tx`)
+- use a single, maintained version of crypto library (and that should be in line with [`ethereumjs-util`](https://github.com/ethereumjs/ethereumjs-monorepo/tree/master/packages/util) and `@ethereumjs/tx`)
 - support import/export between various wallet formats
 - support BIP32 HD keys
 
@@ -135,5 +135,11 @@ MIT License
 
 Copyright (C) 2016 Alex Beregszaszi
 
+[actions-badge]: https://github.com/ethereumjs/ethereumjs-wallet/workflows/Build/badge.svg
+[actions-link]: https://github.com/ethereumjs/ethereumjs-wallet/actions
+[coverage-badge]: https://img.shields.io/coveralls/ethereumjs/ethereumjs-wallet.svg
+[coverage-link]: https://coveralls.io/r/ethereumjs/ethereumjs-wallet
 [discord-badge]: https://img.shields.io/static/v1?logo=discord&label=discord&message=Join&color=blue
 [discord-link]: https://discord.gg/TNwARpR
+[npm-badge]: https://img.shields.io/npm/v/ethereumjs-wallet.svg
+[npm-link]: https://www.npmjs.org/package/ethereumjs-wallet

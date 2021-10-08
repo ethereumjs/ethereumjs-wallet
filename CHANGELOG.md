@@ -8,11 +8,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 ## [1.0.2] - 2021-10-08
 
-- Updated depedencies to latest, added browser build, PR [#157](https://github.com/ethereumjs/ethereumjs-wallet/pull/157)
+- Updated dependencies to latest, added browser build, PR [#157](https://github.com/ethereumjs/ethereumjs-wallet/pull/157)
 
 #### Included Source Files
 
 Source files from the `src` folder are now included in the distribution build. This allows for a better debugging experience in debug tools like Chrome DevTools by having working source map references to the original sources available for inspection.
+
+[1.0.2]: https://github.com/ethereumjs/ethereumjs-wallet/compare/v1.0.1...v1.0.2
 
 ## [1.0.1] - 2020-09-25
 
