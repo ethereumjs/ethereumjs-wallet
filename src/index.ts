@@ -266,18 +266,17 @@ export default class Wallet {
     // Note that randomBytes(32) can not pass isValidPrivate with very low probability
     // see more https://raw.githubusercontent.com/paulmillr/noble-secp256k1/master/test/vectors/privates.json
     while (true) {
-      try {
-        if (icapDirect) {
-          const max = new BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
-          const privateKey = randomBytes(32) as Buffer
-          if (new BN(privateToAddress(privateKey)).lte(max)) {
-            return new Wallet(privateKey)
-          }
-        } else {
-          return new Wallet(randomBytes(32))
+      if (icapDirect) {
+        const max = new BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+        const privateKey = randomBytes(32) as Buffer
+        if (new BN(privateToAddress(privateKey)).lte(max)) {
+          if (!isValidPrivate(privateKey)) continue
+          return new Wallet(privateKey)
         }
-      } catch (ignoreError) {
-        // Do not crash
+      } else {
+        const privateKey = randomBytes(32) as Buffer
+        if (!isValidPrivate(privateKey)) continue
+        return new Wallet(privateKey)
       }
     }
   }
@@ -294,7 +293,7 @@ export default class Wallet {
       const privateKey = randomBytes(32) as Buffer
       const address = privateToAddress(privateKey)
 
-      if (pattern.test(address.toString('hex'))) {
+      if (pattern.test(address.toString('hex')) && isValidPrivate(privateKey)) {
         return new Wallet(privateKey)
       }
     }
