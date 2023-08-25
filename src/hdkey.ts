@@ -1,15 +1,20 @@
 import { HDKey } from 'ethereum-cryptography/hdkey'
+import { mnemonicToSeedSync } from 'ethereum-cryptography/bip39'
 import Wallet from './index'
 
 export default class EthereumHDKey {
   /**
    * Creates an instance based on a seed.
-   *
-   * For the seed we suggest to use [bip39](https://npmjs.org/package/bip39) to
-   * create one from a BIP39 mnemonic.
    */
   public static fromMasterSeed(seedBuffer: Buffer): EthereumHDKey {
     return new EthereumHDKey(HDKey.fromMasterSeed(seedBuffer))
+  }
+
+  /**
+   * Creates an instance based on BIP39 mnemonic phrases
+   */
+  public static fromMnemonic(mnemonic: string, passphrase?: string) {
+    return new EthereumHDKey(HDKey.fromMasterSeed(mnemonicToSeedSync(mnemonic, passphrase)))
   }
 
   /**
