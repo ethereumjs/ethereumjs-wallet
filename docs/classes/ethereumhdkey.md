@@ -25,6 +25,7 @@
 - [publicExtendedKey](ethereumhdkey.md#publicextendedkey)
 - [fromExtendedKey](ethereumhdkey.md#fromextendedkey)
 - [fromMasterSeed](ethereumhdkey.md#frommasterseed)
+- [fromMnemonic](ethereumhdkey.md#frommnemonic)
 
 ---
 
@@ -36,7 +37,7 @@
 
 ⊕ **new EthereumHDKey**(\_hdkey: _`any`_): [EthereumHDKey](ethereumhdkey.md)
 
-_Defined in [hdkey.ts:21](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L21)_
+_Defined in [hdkey.ts:27](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L27)_
 
 **Parameters:**
 
@@ -56,7 +57,7 @@ _Defined in [hdkey.ts:21](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 **● \_hdkey**: _`any`_
 
-_Defined in [hdkey.ts:23](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L23)_
+_Defined in [hdkey.ts:27](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L27)_
 
 ---
 
@@ -68,7 +69,7 @@ _Defined in [hdkey.ts:23](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **deriveChild**(index: _`number`_): [EthereumHDKey](ethereumhdkey.md)
 
-_Defined in [hdkey.ts:52](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L52)_
+_Defined in [hdkey.ts:56](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L56)_
 
 **Parameters:**
 
@@ -86,7 +87,7 @@ _Defined in [hdkey.ts:52](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **derivePath**(path: _`string`_): [EthereumHDKey](ethereumhdkey.md)
 
-_Defined in [hdkey.ts:45](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L45)_
+_Defined in [hdkey.ts:49](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L49)_
 
 **Parameters:**
 
@@ -104,7 +105,7 @@ _Defined in [hdkey.ts:45](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **getWallet**(): [Wallet](wallet.md)
 
-_Defined in [hdkey.ts:59](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L59)_
+_Defined in [hdkey.ts:63](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L63)_
 
 **Returns:** [Wallet](wallet.md)
 
@@ -116,7 +117,7 @@ _Defined in [hdkey.ts:59](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **privateExtendedKey**(): `Buffer`
 
-_Defined in [hdkey.ts:28](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L28)_
+_Defined in [hdkey.ts:32](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L32)_
 
 **Returns:** `Buffer`
 
@@ -128,7 +129,7 @@ _Defined in [hdkey.ts:28](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **publicExtendedKey**(): `Buffer`
 
-_Defined in [hdkey.ts:38](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L38)_
+_Defined in [hdkey.ts:42](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L42)_
 
 **Returns:** `Buffer`
 
@@ -140,7 +141,7 @@ _Defined in [hdkey.ts:38](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **fromExtendedKey**(base58Key: _`string`_): [EthereumHDKey](ethereumhdkey.md)
 
-_Defined in [hdkey.ts:19](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L19)_
+_Defined in [hdkey.ts:23](https://github.com/ethereumjs/ethereumjs-wallet/blob/7b6ac0/src/hdkey.ts#L23)_
 
 **Parameters:**
 
@@ -158,13 +159,32 @@ _Defined in [hdkey.ts:19](https://github.com/ethereumjs/ethereumjs-wallet/blob/1
 
 ▸ **fromMasterSeed**(seedBuffer: _`Buffer`_): [EthereumHDKey](ethereumhdkey.md)
 
-_Defined in [hdkey.ts:12](https://github.com/ethereumjs/ethereumjs-wallet/blob/13fb20d/src/hdkey.ts#L12)_
+_Defined in [hdkey.ts:9](https://github.com/ethereumjs/ethereumjs-wallet/blob/5f6d93/src/hdkey.ts#L9)_
 
 **Parameters:**
 
 | Name       | Type     |
 | ---------- | -------- |
 | seedBuffer | `Buffer` |
+
+**Returns:** [EthereumHDKey](ethereumhdkey.md)
+
+---
+
+<a id="frommnemonic"></a>
+
+### `<Static>` fromMnemonic
+
+▸ **fromMnemonic**(mnemonic: _`string`_, passphrase: _`string`_): [EthereumHDKey](ethereumhdkey.md)
+
+_Defined in [hdkey.ts:16](https://github.com/ethereumjs/ethereumjs-wallet/blob/5f6d93/src/hdkey.ts#L16)_
+
+**Parameters:**
+
+| Name       | Type     |
+| ---------- | -------- |
+| mnemonic | `string` |
+| `Optional` passphrase | `string` |
 
 **Returns:** [EthereumHDKey](ethereumhdkey.md)
 
