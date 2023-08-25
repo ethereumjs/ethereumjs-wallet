@@ -14,7 +14,7 @@ export default class EthereumHDKey {
    * Creates an instance based on BIP39 mnemonic phrases
    */
   public static fromMnemonic(mnemonic: string, passphrase?: string) {
-    return new EthereumHDKey(HDKey.fromMasterSeed(mnemonicToSeedSync(mnemonic, passphrase)))
+    return EthereumHDKey.fromMasterSeed(Buffer.from(mnemonicToSeedSync(mnemonic, passphrase)))
   }
 
   /**
