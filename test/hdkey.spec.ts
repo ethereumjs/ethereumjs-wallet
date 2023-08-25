@@ -7,12 +7,32 @@ const fixtureseed = Buffer.from(
   'hex'
 )
 const fixturehd = EthereumHDKey.fromMasterSeed(fixtureseed)
+const fixtureMnemonic = 'awake book subject inch gentle blur grant damage process float month clown'
+const fixtureAddress = '0x4dcccf58c6573eb896250b0c9647a40c1673af44'
+const fixturePrivateKey = '0xf62a8ea4ab7025d151ccd84981c66278d0d3cd58ff837467cdc51229915a22d1'
 
 describe('.fromMasterSeed()', function () {
   it('should work', function () {
     assert.doesNotThrow(function () {
       EthereumHDKey.fromMasterSeed(fixtureseed)
     })
+  })
+})
+
+describe('.fromMnemonic()', function () {
+  it('should work', function () {
+    assert.doesNotThrow(function () {
+      EthereumHDKey.fromMnemonic(fixtureMnemonic)
+    })
+  })
+
+  it('should match', function () {
+    const path = "m/44'/60'/0'/0/0"
+    const hdWallet = EthereumHDKey.fromMnemonic(fixtureMnemonic)
+    const wallet = hdWallet.derivePath(path).getWallet()
+
+    assert.strictEqual(wallet.getPrivateKeyString(), fixturePrivateKey)
+    assert.strictEqual(wallet.getAddressString(), fixtureAddress)
   })
 })
 
