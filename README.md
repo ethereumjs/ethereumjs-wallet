@@ -1,9 +1,10 @@
 # ethereumjs-wallet
 
-[![NPM Package][npm-badge]][npm-link]
-[![Actions Status][actions-badge]][actions-link]
-[![Coverage Status][coverage-badge]][coverage-link]
-[![Discord][discord-badge]][discord-link]
+> [!WARNING]  
+> The repository has been merged into [ethereumjs-monorepo](https://github.com/ethereumjs/ethereumjs-monorepo). Please head to the new repo for updates.
+
+---
+
 
 A lightweight wallet implementation. At the moment it supports key creation and conversion between various formats.
 
